@@ -1,0 +1,12 @@
+@media (min-width: 800px) {
+  .feed_main_body {
+    width: 60%;
+    padding: 1em 1.25em;
+  }
+}
+
+@media (min-width: 1100px) {
+  .feed_main_body {
+    max-width: 50%;
+  }
+}

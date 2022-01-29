@@ -1,0 +1,43 @@
+.article {
+  background-color: white;
+  margin-top: 1em;
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 15px;
+}
+.article_top {
+  display: flex;
+  padding: 0.25em 0.6em;
+}
+.info {
+  margin-left: 0.75em;
+}
+.uploaded_file {
+  max-width: 100%;
+}
+.uploaded_file > img {
+  width: 100%;
+  height: auto;
+  padding: 0;
+}
+.reactions,
+.reaction_icons {
+  display: flex;
+}
+.reaction_icons > div:hover {
+  color: black;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: grey;
+}
+
+.reaction_icons {
+  justify-content: space-around;
+  color: rgb(80, 80, 80);
+}
+
+.reaction_icons > div {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0;
+  padding: 0.5em 0.2em;
+}

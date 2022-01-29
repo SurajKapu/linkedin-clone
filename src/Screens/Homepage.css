@@ -1,0 +1,112 @@
+.homepage_container {
+  background-color: white;
+  height: 100vh;
+}
+.homepage__body {
+  margin: auto;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2em 0;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 100px;
+}
+
+.signin_btn {
+  margin-left: 1em;
+  font-size: 1.24rem;
+  color: #0a66c2;
+  border: 1px solid #0a66c2;
+  border-radius: 30px;
+  padding: 0.5em 1em;
+  background-color: white;
+}
+
+.signin_btn:hover {
+  background-color: rgba(124, 188, 207, 0.2);
+  cursor: pointer;
+}
+
+.join_btn {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: gray;
+  margin-right: 0.5em;
+  padding: 0.5em 0.5em;
+  border-radius: 3px;
+}
+
+.join_btn:hover {
+  background-color: rgb(117, 114, 114, 0.1);
+  color: black;
+  cursor: pointer;
+}
+
+.welcomeText {
+  text-align: left;
+  font-weight: 300;
+  font-size: 3.1rem;
+  word-spacing: 2px;
+  letter-spacing: 1px;
+  margin-top: 0.5em;
+  color: rgb(179, 112, 112);
+}
+.homepage__img {
+  margin-top: 2em;
+}
+
+@media (min-width: 600px) {
+  .homepage__body {
+    max-width: 75%;
+    margin: auto;
+  }
+  .logo {
+    width: 150px;
+  }
+  .welcomeText {
+    font-weight: 300;
+    color: rgb(139, 58, 58);
+  }
+  .homepage__content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .homepage__img {
+    width: 850px;
+  }
+}
+@media (max-width: 600px) {
+  .homepage__body {
+    max-width: 90%;
+    margin: auto;
+  }
+  .join_btn {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: gray;
+    margin-right: 0.5em;
+    padding: 0.25em 0.25em;
+    border-radius: 3px;
+  }
+  .signin_btn {
+    margin-left: 0.5em;
+    font-size: 1.1rem;
+    color: #0a66c2;
+    border: 1px solid #0a66c2;
+    border-radius: 30px;
+    padding: 0.4em 0.95em;
+    background-color: white;
+  }
+  .homepage__img {
+    margin-top: 3.5em;
+  }
+  .welcomeText {
+    font-weight: 200;
+    font-size: 2.05rem;
+  }
+}

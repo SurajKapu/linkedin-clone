@@ -1,0 +1,9 @@
+@media (min-width: 800px) {
+  .feed__body {
+    display: flex;
+  }
+  .news {
+    margin: 1em;
+    width: 25%;
+  }
+}

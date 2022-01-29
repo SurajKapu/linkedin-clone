@@ -1,0 +1,88 @@
+.signup__container {
+  background-color: white;
+  height: 100vh;
+  max-width: 450px;
+  margin: auto;
+}
+.signup__body {
+  align-items: center;
+  width: 85%;
+  margin: auto;
+  font-size: 1rem;
+  padding: 1em;
+}
+.signup__logo {
+  width: 150px;
+}
+.subtitle {
+  font-size: 1.5rem;
+  margin: 0.5em 0;
+  text-align: center;
+}
+.signup_form {
+  text-align: left;
+}
+
+.fullName,
+.signup_email,
+.signup_password {
+  width: 100%;
+  height: 30px;
+  margin: 0.75em 0;
+}
+
+.terms {
+  font-size: 0.8rem;
+}
+.signup_submit {
+  width: 100%;
+  font-size: 1.25rem;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 0.5em;
+  background-color: white;
+  cursor: pointer;
+  margin: 0.8em 0;
+}
+.signup_submit {
+  background-color: #0a66c2;
+  border: 1px solid #0a66c2;
+  color: white;
+}
+
+span {
+  color: #3205ff;
+  cursor: pointer;
+}
+span:hover {
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .signup__body {
+    align-items: center;
+    width: 95%;
+    max-width: 500px;
+    margin: auto;
+    font-size: 1rem;
+  }
+  .signup__logo {
+    width: 90px;
+  }
+  .subtitle {
+    padding: 0.15em;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    margin: 0.5em 0;
+  }
+  .fullName,
+  .signup_email,
+  .signup_password {
+    width: 100%;
+    height: 35px;
+    margin: 0.75em 0;
+  }
+  .terms {
+    margin-top: 2em;
+  }
+}
