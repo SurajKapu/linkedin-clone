@@ -6,8 +6,10 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import NotificationsSharpIcon from "@mui/icons-material/NotificationsSharp";
 import ChatBubbleSharpIcon from "@mui/icons-material/ChatBubbleSharp";
+
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../userSlice";
+
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
@@ -40,7 +42,7 @@ function Header() {
                 className="header__icon"
               />
             </div>
-            <img alt={user.displayName} className="userImg" />
+            <p style={{ marginRight: "0.75em" }}>{user.displayName}</p>
 
             <button
               onClick={() => {

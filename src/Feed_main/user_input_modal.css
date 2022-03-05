@@ -46,6 +46,11 @@
 .post {
   cursor: pointer;
 }
+.user_details {
+  display: flex;
+  justify-content: last baseline;
+  align-items: center;
+}
 .modal_bottom {
   display: flex;
   justify-content: space-between;

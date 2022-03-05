@@ -2,6 +2,7 @@ import React from "react";
 import "./article.css";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
 import ShareIcon from "@mui/icons-material/Share";
 import ReactPlayer from "react-player";
@@ -15,15 +16,7 @@ function Article({ props }) {
     <div className="article">
       <div className="article_body">
         <div className="article_top">
-          {/*<img
-            alt="img"
-            style={{
-              width: "65px",
-              height: "65px",
-              border: "1px solid black",
-              borderRadius: "55px",
-            }}
-          />*/}
+          <AccountCircleIcon style={{ color: "grey", fontSize: "2.5rem" }} />
           <div className="info">
             <div>{props.userName}</div>
             <div>{props.date}</div>

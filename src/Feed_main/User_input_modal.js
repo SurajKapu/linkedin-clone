@@ -3,6 +3,7 @@ import "./user_input_modal.css";
 
 import PhotoSizeSelectActualIcon from "@mui/icons-material/PhotoSizeSelectActual";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { useState } from "react";
 
@@ -104,8 +105,17 @@ function User_input_modal({ closeModal }) {
           </div>
         </div>
         <div className="modal_middle">
-          <img alt={user.displayName} className="user_img" />
-          <br />
+          <div className="user_details">
+            <AccountCircleIcon
+              style={{
+                color: "grey",
+                fontSize: "2.5rem",
+                display: "inline-block",
+              }}
+            />
+            <p>{user.displayName}</p>
+            <br />
+          </div>
           <textarea
             className="user_input_block"
             placeholder="What do you want to talk about?"
