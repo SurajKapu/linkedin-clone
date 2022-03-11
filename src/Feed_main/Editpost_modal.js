@@ -9,7 +9,7 @@ import { useState } from "react";
 
 import ReactPlayer from "react-player";
 
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc ,deleteField} from "firebase/firestore";
 import db from "../firebase";
 import {
   getStorage,
@@ -21,27 +21,33 @@ import {
 import { useSelector } from "react-redux";
 import { selectUser } from "../userSlice";
 
-function User_input_modal({ closeModal ,loading }) {
+function Editpost_modal({ props, id, closeModal,loading }) {
   const [userInput, setUserInput] = useState("");
   const [image, setImage] = useState();
   const [videoLink, setVideoLink] = useState("");
-  
+  const [propVideoLink, setpropVideoLink] = useState(true);
+  const [propImageLink, setpropImageLink] = useState(true);
+  const [removeVideo, setRemoveVideo] = useState(false);
+  const [removeImage, setRemoveImage] = useState(false);
+
   const [showimageInput, setShowImageInput] = useState(false);
   const [showVideoInput, setShowVideoInput] = useState(false);
   const user = useSelector(selectUser);
-  const docRef = doc(db, "users", "user", `${user.uid}`, `${new Date()}`);
-  
-  const uploadPost = () => {
-    if (!userInput && !image && !videoLink) {
-      alert("Please enter something.");
-    } else {
-      if (image) {
-        loading(true);
+
+  const editPost = async() => {
+    const updateuserInput = userInput? userInput : props.userInput;
+    const updateimage = (removeImage && !image) ? " " :  image;
+    const updatevideoLink = (removeVideo && !videoLink) ? videoLink : videoLink; 
+
+    const updateRef = doc(db, "users", "user", `${user.uid}`, id);
+    
+    if(updateimage){
+      loading(true);
         // Create a root reference
         const storage = getStorage();
         // Create a reference to 'mountains.jpg'
-        const storageRef = sRef(storage, `/images/${image.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, image);
+        const storageRef = sRef(storage, `/images/${updateimage.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, updateimage);
         uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -66,46 +72,46 @@ function User_input_modal({ closeModal ,loading }) {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
               loading(false);
+
               const toFirestore = async () => {
-                await setDoc(docRef, {
-                  userInput,
-                  image: downloadURL,
-                  videoLink,
+                await updateDoc(updateRef, {
+                  "userInput":updateuserInput,
+                  "image": downloadURL,
+                  "videoLink":updatevideoLink,
                   date: `${new Date().getDate()}/${new Date().getMonth() + 1}/${
                     new Date().getYear() + 2000 - 100
                   }`,
-                  userName: user.displayName,
                 });
               };
               toFirestore();
             });
           }
         );
-        closeModal(false);
-      } else {
-        const toFirestore = async () => {
-          loading(true);
-          await setDoc(docRef, {
-            userInput,
-            videoLink,
-            date: `${new Date().getDate()}/${new Date().getMonth() + 1}/${
-              new Date().getYear() + 2000 - 100
-            }`,
-            userName: user.displayName,
-          });
-          loading(false);
-        };
-        toFirestore();
-        closeModal(false);
-      }
+    closeModal(false);
     }
+    else{
+    loading(true)
+    await updateDoc(updateRef, {
+      "userInput":updateuserInput,
+      "videoLink":updatevideoLink,
+    });
+    loading(false)
+  }
+
+  if(removeImage && !image) {
+    await updateDoc(updateRef, {
+      "userInput":updateuserInput,
+      "videoLink":updatevideoLink,
+    image: deleteField()
+    });
+  }
   };
 
   return (
     <div className="modal">
       <div className="modal_container">
         <div className="modal_top">
-          <div className="modal_header">Create a post</div>
+          <div className="modal_header">Update post</div>
           <div onClick={() => closeModal(false)} className="close">
             X
           </div>
@@ -128,7 +134,9 @@ function User_input_modal({ closeModal ,loading }) {
             onChange={(e) => {
               setUserInput(e.target.value);
             }}
-          ></textarea>
+          >
+            {props ? props.userInput : " "}
+          </textarea>
         </div>
         <div>
           {showimageInput ? (
@@ -139,18 +147,33 @@ function User_input_modal({ closeModal ,loading }) {
               style={{ height: "25px", width: "50%", marginTop: "1em" }}
             />
           ) : null}
-          {image && (
+
+          {image ? (
             <img
               src={URL.createObjectURL(image)}
               style={{ maxWidth: "100%", maxHeight: "300px" }}
             />
-          )}
+          ):""}
+
+         {(props.image && propImageLink) ? (
+            <><img
+              style={{ maxWidth: "100%", maxHeight: "300px" }}
+              src={`${props.image}`}
+            />
+            <button onClick={()=>{
+              setpropImageLink(false);
+              setImage("");
+              setRemoveImage(true)
+            }}>Remove Image</button>
+            </>
+          ) : (
+            ""
+          )} 
         </div>
         <div>
           {showVideoInput ? (
             <input
               type="text"
-              placeholder="Paste video link here"
               onChange={(e) => {
                 setVideoLink(e.target.value);
               }}
@@ -163,6 +186,26 @@ function User_input_modal({ closeModal ,loading }) {
               style={{ maxWidth: "100%", marginTop: "1em", maxHeight: "250px" }}
             />
           )}
+
+          {(props.videoLink && propVideoLink) ? (
+            <>
+            <ReactPlayer
+              url={props.videoLink}
+              style={{
+                maxWidth: "100%",
+                marginTop: "1em",
+                maxHeight: "250px",
+              }}
+            />
+            <button onClick={()=>{
+              setpropVideoLink(false);
+              setVideoLink("");
+              setRemoveVideo(true)
+            }}>Remove Video</button>
+            </>
+          ) : (
+            " "
+          )}
         </div>
         <div className="modal_bottom">
           <div className="modal_icons">
@@ -171,6 +214,8 @@ function User_input_modal({ closeModal ,loading }) {
                 setShowImageInput(true);
                 setShowVideoInput(false);
                 setVideoLink("");
+                setpropVideoLink(false);
+                setpropImageLink(false);
               }}
             />
             <VideoLibraryIcon
@@ -178,11 +223,15 @@ function User_input_modal({ closeModal ,loading }) {
                 setShowImageInput(false);
                 setShowVideoInput(true);
                 setImage("");
+                setpropImageLink(false);
+                setpropVideoLink(false);
               }}
             />
           </div>
-            <button className="post" onClick={uploadPost}>
-              Post
+            <button className="post" onClick={()=>{
+              editPost();
+              closeModal(false)}}>
+              Update
             </button>
         </div>
       </div>
@@ -190,4 +239,4 @@ function User_input_modal({ closeModal ,loading }) {
   );
 }
 
-export default User_input_modal;
+export default Editpost_modal;

@@ -6,10 +6,33 @@
 }
 .article_top {
   display: flex;
-  padding: 0.5em 0.6em 0.25em 0.6em;
+  justify-content: space-between;
+  padding: 0.5em 0.6em 0.5em 0.6em;
 }
 .info {
   margin-left: 0.75em;
+  display: flex;
+}
+.name {
+  margin-left: 0.75em;
+}
+.moreOptions:hover {
+  cursor: pointer;
+}
+.modify_post {
+  text-align: right;
+  padding-right: 1.1em;
+}
+.edit_post ,.delete_post{
+  margin-bottom: 0.1em;
+  padding: 0 1em;
+  border-radius: 5px;
+}
+.edit_post:hover,
+.delete_post:hover {
+  cursor: pointer;
+  display: inline-block;
+  background-color: antiquewhite;
 }
 .uploaded_file {
   max-width: 100%;

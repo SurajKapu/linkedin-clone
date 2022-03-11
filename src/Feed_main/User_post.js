@@ -9,7 +9,9 @@ import { useState } from "react";
 
 function User_post() {
   const [showModal, setshowModal] = useState(false);
+  const [loading, setLoading] = useState(false)
   return (
+    <>
     <div className="user_post_container">
       <div className="user_input" onClick={() => setshowModal(true)}>
         Start a post
@@ -33,10 +35,12 @@ function User_post() {
         <div className="user_media">
           <WebIcon style={{ color: "#fc9295" }} />
           <div className="user_media_desc">Write article</div>
-        </div>
+        </div> 
       </div>
-      {showModal && <User_input_modal closeModal={setshowModal} />}
+      {showModal && <User_input_modal closeModal={setshowModal} loading={setLoading}/>}
     </div>
+    {loading && <h5>Loading...</h5>}
+    </>
   );
 }
 
